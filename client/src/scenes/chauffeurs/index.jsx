@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Dialog, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useGetChauffeurQuery } from "state/api";
+import {useDeleteChauffeurMutation, useGetChauffeurQuery} from "state/api";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import ModalFormChauffeur from "./ModalFormChauffeur";
@@ -9,8 +9,8 @@ import { useState } from "react";
 
 const Customers = () => {
   const theme = useTheme();
-  // const { data, isLoading } = useGetChauffeurQuery();
-  const isLoading = false;
+  const { data, isLoading } = useGetChauffeurQuery();
+  // const isLoading = false;
   const [open, setOpen] = useState(false);
   const [selectedChauffeur, setSelectedChauffeur] = useState(null);
 
@@ -20,27 +20,13 @@ const Customers = () => {
   const handleOpen = () => {
     setOpen(true);
   };
-  const onDeleteChauffeur = () => {
-    console.log("hna tab3et request te3 delete Chauffeur ctt");
+  const onDeleteChauffeur = (id) => {
+   const deleteFn = () => {
+     console.log(id);
+     // useDeleteChauffeurMutation(id);
+    }
+    return useDeleteChauffeurMutation(id);
   };
-  const data = [
-    {
-      _id: "Imm",
-      matricule: "123",
-      nom: "123",
-      email: "123",
-      telephone: "123",
-      etat: "123",
-    },
-    {
-      _id: "Roi",
-      matricule: "123",
-      nom: "123",
-      email: "123",
-      telephone: "123",
-      etat: "123",
-    },
-  ];
 
   const columns = [
     {
@@ -112,7 +98,7 @@ const Customers = () => {
                 padding: "6px 8px",
                 fontSize: 12,
               }}
-              onClick={onDeleteChauffeur}
+              onClick={onDeleteChauffeur(params.row._id)}
             >
               Supprimer
             </Link>

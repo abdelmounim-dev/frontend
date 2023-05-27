@@ -4,7 +4,7 @@ import { useGetVehiculeQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
 
-const Customers = () => {
+const Vehicules = () => {
   const theme = useTheme();
   const { data, isLoading } = useGetVehiculeQuery();
   // console.log("data", data);
@@ -101,4 +101,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default Vehicules;

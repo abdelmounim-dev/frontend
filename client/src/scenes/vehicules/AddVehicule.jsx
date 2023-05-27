@@ -1,7 +1,7 @@
 import { Button, styled, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {usePostChauffeurMutation} from "../../state/api";
+import {usePostChauffeurMutation, usePostVehiculeMutation} from "../../state/api";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   margin: "1rem",
@@ -9,21 +9,19 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 const AddChauffeur = (props) => {
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [email, setEmail] = useState("");
-  const [matricule, setMatricule] = useState("");
-  const [telephone, setTelephone] = useState("");
+  const [kilometrage, setKilometrage] = useState("");
   const [etat, setEtat] = useState("");
-  const [categorie, setCategorie] = useState("");
-  const [postChauffeur] = usePostChauffeurMutation();
+  const [matricule, setMatricule] = useState("");
+  const [modele, setModele] = useState("");
+  const [postVehicule] = usePostVehiculeMutation();
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    postChauffeur({nom, prenom, email, matricule, telephone, etat, categorie});
+    postVehicule({ kilometrage, etat, matricule, modele });
+    // go to /vehicules
+    navigate("/vehicules");
     // props.handleClose();
-    navigate("/chauffeurs");
   };
 
   return (
@@ -38,26 +36,12 @@ const AddChauffeur = (props) => {
       }}
     >
       <StyledTextField
-        label="nom"
+        label="kilometrage"
         variant="filled"
+        type="number"
         required
-        value={nom}
-        onChange={(e) => setNom(e.target.value)}
-      />
-      <StyledTextField
-        label="prenom"
-        variant="filled"
-        required
-        value={prenom}
-        onChange={(e) => setPrenom(e.target.value)}
-      />
-      <StyledTextField
-        label="Email"
-        type="email"
-        variant="filled"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={kilometrage}
+        onChange={(e) => setKilometrage(e.target.value)}
       />
       <StyledTextField
         label="matricule"
@@ -67,26 +51,11 @@ const AddChauffeur = (props) => {
         onChange={(e) => setMatricule(e.target.value)}
       />
       <StyledTextField
-        label="telephone"
-
-        variant="filled"
-        required
-        value={telephone}
-        onChange={(e) => setTelephone(e.target.value)}
-    />
-      <StyledTextField
           label="etat"
           variant="filled"
           required
           value={etat}
           onChange={(e) => setEtat(e.target.value)}
-      />
-      <StyledTextField
-          label="categorie"
-          variant="filled"
-          required
-          value={categorie}
-          onChange={(e) => setCategorie(e.target.value)}
       />
       <div>
         <Button
@@ -95,7 +64,7 @@ const AddChauffeur = (props) => {
           onClick={props.handleClose}
         >
           <Link
-            to="/chauffeurs"
+            to="/vehicules"
             style={{
               color: "white",
               textDecoration: "none",

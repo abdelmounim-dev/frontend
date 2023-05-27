@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/v1/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
   reducerPath: "adminApi",
   tagTypes: [
     "User",
@@ -26,10 +26,41 @@ export const api = createApi({
       query: () => "/vehicule",
       providesTags: ["Vehicules"],
     }),
+    postVehicule: build.mutation({
+        query: (body) => ({
+            url: "/vehicule",
+            method: "POST",
+            body,
+        }),
+        invalidatesTags: ["Vehicules"],
+    },),
     getChauffeur: build.query({
       query: () => "/employe/chauffeur",
       providesTags: ["Chauffeurs"],
     }),
+    postChauffeur: build.mutation({
+        query: (body) => ({
+            url: "/employe/chauffeur",
+            method: "POST",
+            body,
+        }),
+        invalidatesTags: ["Chauffeurs"],
+    },),
+    updateChauffeur: build.mutation({
+        query: (body) => ({
+            url: "/employe/chauffeur/"+body._id,
+            method: "PATCH",
+            body,
+        }),
+        invalidatesTags: ["Chauffeurs"],
+    },),
+    deleteChauffeur: build.mutation({
+        query: (id) => ({
+            url: "/employe/chauffeur/"+id,
+            method: "DELETE",
+        }),
+        invalidatesTags: ["Chauffeurs"],
+    },),
     getCarburant: build.query({
       query: () => "/carburant",
       providesTags: ["Carburant"],
@@ -77,7 +108,12 @@ export const api = createApi({
 export const {
   useGetUserQuery,
   useGetVehiculeQuery,
+    usePostVehiculeMutation,
   useGetChauffeurQuery,
+    usePostChauffeurMutation,
+    useUpdateChauffeurMutation,
+    useDeleteChauffeurMutation,
+
   useGetCartesQuery: useGetCarbuantQuery,
   useGetProductsQuery,
   useGetCustomersQuery,

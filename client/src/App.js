@@ -7,7 +7,7 @@ import { themeSettings } from "theme";
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
 // import Products from "scenes/products";
-import Customers from "scenes/vehicules";
+import Vehicules from "scenes/vehicules";
 import Transactions from "scenes/transactions";
 import Geography from "scenes/geography";
 import Overview from "scenes/overview";
@@ -17,7 +17,6 @@ import Breakdown from "scenes/breakdown";
 import Admin from "scenes/admin";
 import Performance from "scenes/performance";
 import Chauffeurs from "./scenes/chauffeurs";
-import Vehicules from "scenes/vehicules";
 import Cartes from "./scenes/cartes";
 import AddChauffeur from "scenes/chauffeurs/AddChauffeur";
 
